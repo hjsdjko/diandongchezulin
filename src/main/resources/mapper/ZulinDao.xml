@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.ZulinDao">
+
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        a.id as id
+        ,a.cl_types as clTypes
+        ,a.yh_types as yhTypes
+        ,a.day as day
+        ,a.sf_types as sfTypes
+        ,a.maxmoney as maxmoney
+        ,a.pledge as pledge
+        ,a.zhuangtai as zhuangtai
+    </sql>
+
+    <select id="selectListView" parameterType="map" resultType="com.entity.view.ZulinView" >
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM Zulin  a
+        <where>
+            <if test=" params.clTypes != '' and params.clTypes != null and params.clTypes != 'null' ">
+                and a.cl_types = #{params.clTypes}
+            </if>
+            <if test=" params.yhTypes != '' and params.yhTypes != null">
+                and a.yh_types = #{params.yhTypes}
+            </if>
+            <if test=" params.day != '' and params.day != null and params.day != 'null' ">
+                and a.day = #{params.day}
+            </if>
+            <if test=" params.sfTypes != '' and params.sfTypes != null and params.sfTypes != 'null' ">
+                and a.sf_types = #{params.sfTypes}
+            </if>
+            <if test=" params.maxmoney != '' and params.maxmoney != null and params.maxmoney != 'null' ">
+                and a.maxmoney = #{params.maxmoney}
+            </if>
+            <if test=" params.pledge != '' and params.pledge != null and params.pledge != 'null' ">
+                and a.pledge = #{params.pledge}
+            </if>
+        </where>
+        order by a.id desc
+    </select>
+
+</mapper>
